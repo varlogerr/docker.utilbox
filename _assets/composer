@@ -1,0 +1,31 @@
+#!/bin/bash
+
+the_user="composer"
+the_group=${the_user}
+the_home="/home/${the_user}"
+image_tag="varlog/util_composer"
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+context_dir="${script_dir}/docker/composer"
+vendor_cache_dir="${script_dir}/cache/composer"
+composer_dir="${the_home}/cache"
+src_dir="${the_home}/app"
+
+docker build -q -t ${image_tag} \
+    --build-arg THE_USER=${the_user} \
+    --build-arg THE_GROUP=${the_group} \
+    --build-arg THE_HOME=${the_home} \
+    $context_dir
+
+docker run -it --rm \
+    -e "COMPOSER_HOME=${composer_dir}" \
+    -v ${vendor_cache_dir}:${composer_dir} \
+    ${image_tag} \
+    /bin/bash -c "chown ${the_user}:${the_group} ${composer_dir}"
+
+docker run -it --rm \
+    -e "COMPOSER_HOME=${composer_dir}" \
+    -v $(pwd):${src_dir} \
+    -v ${vendor_cache_dir}:${composer_dir} \
+    -w ${src_dir} \
+    -u ${the_user} \
+    ${image_tag} $@

@@ -1,0 +1,2 @@
+set -x \
+&& echo "export PATH=\$PATH:${THE_HOME}/cache/vendor/bin" >> ${THE_HOME}/.bashrc

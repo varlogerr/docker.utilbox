@@ -10,4 +10,6 @@ ADD ["assets", "/tmp/assets"]
 
 RUN /bin/bash /tmp/assets/scripts/create-users \
     && /bin/bash /tmp/assets/scripts/export-path \
+    && mv /tmp/assets/scripts/install-and-run / \
+    && chmod 0777 /install-and-run \
     && rm -rf /tmp/assets

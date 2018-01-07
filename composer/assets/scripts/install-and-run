@@ -1,0 +1,13 @@
+#!/bin/bash
+
+name=$1
+require_name=$2
+
+shift
+shift
+
+if [ ! -f /home/composer/cache/vendor/bin/$name ]; then
+    composer global require $require_name
+fi
+
+/home/composer/cache/vendor/bin/$name $@

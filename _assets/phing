@@ -1,0 +1,3 @@
+#!/bin/bash
+
+/bin/bash composer /home/composer/cache/vendor/bin/phing $@

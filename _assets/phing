@@ -1,3 +1,6 @@
 #!/bin/bash
 
-/bin/bash composer /home/composer/cache/vendor/bin/phing $@
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+/bin/bash $script_dir/composer \
+    /install-and-run phing phing/phing $@

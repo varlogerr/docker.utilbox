@@ -1,0 +1,7 @@
+set -x \
+&& adduser -q --disabled-login \
+    --uid 1000 \
+    --shell /bin/bash \
+    --gecos ",,," \
+    --home $THE_HOME \
+    $THE_USER

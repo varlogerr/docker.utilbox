@@ -1,9 +1,6 @@
 #!/bin/bash
 
-: ${NODEV:=8.9}
-IFS='.' read -ra nodev_arr <<< $NODEV
-nodev_major=${nodev_arr[0]}
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "${script_dir}/.docker.utilbox-utilbox_dir"
 
-docker run -it --rm \
-    -v $(pwd):/root/app -w /root/app -u 1000 \
-    node:$NODEV node $@
+/bin/bash ${utilbox_dir}/helper/node node $@

@@ -1,0 +1,22 @@
+#!/bin/bash
+
+: ${NODEV:=8.9}
+IFS='.' read -ra nodev_arr <<< $NODEV
+nodev_major=${nodev_arr[0]}
+
+util=$1
+shift
+
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+image_tag="varlog/util_nodejs"
+the_user="nodejs"
+the_group=${the_user}
+the_home=/home/${the_user}
+context_dir="${script_dir}/../docker/nodejs"
+
+docker build -t ${image_tag} \
+    --build-arg THE_USER=${the_user} \
+    --build-arg THE_GROUP=${the_group} \
+    --build-arg THE_HOME=${the_home} \
+    --no-cache \
+    ${context_dir}

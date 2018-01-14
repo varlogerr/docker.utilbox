@@ -1,12 +1,14 @@
 #!/bin/bash
 
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "${script_dir}/.docker.utilbox-utilbox_dir"
+context_dir="${utilbox_dir}/docker/composer"
+vendor_cache_dir="${utilbox_dir}/cache/composer"
+
 the_user="composer"
 the_group=${the_user}
 the_home="/home/${the_user}"
 image_tag="varlog/util_composer"
-script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-context_dir="${script_dir}/docker.utilbox/docker/composer"
-vendor_cache_dir="${script_dir}/cache/composer"
 composer_dir="${the_home}/cache"
 src_dir="${the_home}/app"
 

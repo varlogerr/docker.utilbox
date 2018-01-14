@@ -1,0 +1,9 @@
+#!/bin/bash
+
+: ${NODEV:=8.9}
+IFS='.' read -ra nodev_arr <<< $NODEV
+nodev_major=${nodev_arr[0]}
+
+docker run -it --rm \
+    -v $(pwd):/root/app -w /root/app -u 1000 \
+    node:$NODEV node $@

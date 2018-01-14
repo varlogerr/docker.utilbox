@@ -1,5 +1,15 @@
 #!/bin/bash
 
 source $HOME/.nvm/nvm.sh
-nvm install ${NODEV}
-nvm use ${NODEV}
+current_version=$(nvm current)
+current_v=${current_version:1}
+requested_v=$NODEV
+requested_len=${#requested_v}
+
+if [[ ${current_v:0:requested_len} == $requested_v ]];
+then
+    :
+else
+    nvm install ${NODEV}
+    nvm use ${NODEV}
+fi

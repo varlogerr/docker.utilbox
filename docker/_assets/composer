@@ -3,7 +3,7 @@
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "${script_dir}/.docker.utilbox-utilbox_dir"
 context_dir="${utilbox_dir}/docker/composer"
-vendor_cache_dir="${utilbox_dir}/cache/composer"
+mount_dir="${utilbox_dir}/mounts/composer"
 
 the_user="composer"
 the_group=${the_user}
@@ -20,14 +20,14 @@ docker build -q -t ${image_tag} \
 
 docker run -it --rm \
     -e "COMPOSER_HOME=${composer_dir}" \
-    -v ${vendor_cache_dir}:${composer_dir} \
+    -v ${mount_dir}:${composer_dir} \
     ${image_tag} \
     /bin/bash -c "chown ${the_user}:${the_group} ${composer_dir}"
 
 docker run -it --rm \
     -e "COMPOSER_HOME=${composer_dir}" \
     -v $(pwd):${src_dir} \
-    -v ${vendor_cache_dir}:${composer_dir} \
+    -v ${mount_dir}:${composer_dir} \
     -w ${src_dir} \
     -u ${the_user} \
     ${image_tag} $@

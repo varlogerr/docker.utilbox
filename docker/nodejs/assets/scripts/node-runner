@@ -1,0 +1,11 @@
+#!/bin/bash
+
+
+util=$1
+shift
+
+source $HOME/.nvm/nvm.sh
+nvm install ${NODEV}
+nvm use ${NODEV}
+
+$util $@

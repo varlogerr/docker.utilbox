@@ -13,6 +13,8 @@ RUN /bin/bash /tmp/assets/scripts/create-users \
     && chmod +x /nvm-runner \
     && cp /tmp/assets/scripts/node-installer / \
     && chmod +x /node-installer \
+    && cp /tmp/assets/scripts/nodeutil-runner / \
+    && chmod +x /nodeutil-runner \
     && cp /tmp/assets/scripts/node-runner / \
     && chmod +x /node-runner
 

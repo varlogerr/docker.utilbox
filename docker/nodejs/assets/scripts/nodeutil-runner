@@ -1,0 +1,16 @@
+#!/bin/bash
+
+source /node-installer
+
+util=$1
+installer_name=$2
+shift
+shift
+
+if which ${util} >/dev/null; then
+    :
+else
+    npm install -g $installer_name
+fi
+
+$util $@

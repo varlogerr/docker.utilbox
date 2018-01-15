@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ${HOME}/node-installer
+source /node-installer
 
 util=$1
 shift

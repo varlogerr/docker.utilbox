@@ -9,12 +9,12 @@ ADD ["assets", "/tmp/assets"]
 
 RUN /bin/bash /tmp/assets/scripts/create-users \
     && /bin/bash /tmp/assets/scripts/install-wget \
-    && cp /tmp/assets/scripts/nvm-runner $THE_HOME \
-    && chmod +x $THE_HOME/nvm-runner \
-    && cp /tmp/assets/scripts/node-installer $THE_HOME \
-    && chmod +x $THE_HOME/node-installer \
-    && cp /tmp/assets/scripts/node-runner $THE_HOME \
-    && chmod +x $THE_HOME/node-runner
+    && cp /tmp/assets/scripts/nvm-runner / \
+    && chmod +x /nvm-runner \
+    && cp /tmp/assets/scripts/node-installer / \
+    && chmod +x /node-installer \
+    && cp /tmp/assets/scripts/node-runner / \
+    && chmod +x /node-runner
 
 USER $THE_USER
 

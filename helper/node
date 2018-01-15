@@ -45,4 +45,4 @@ docker run -it --rm \
     -v $(pwd):${src_dir} \
     -w ${src_dir} \
     -u ${the_user} \
-    ${image_tag} ${the_home}/node-runner $@
+    ${image_tag} $@

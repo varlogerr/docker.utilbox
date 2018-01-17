@@ -1,3 +1,3 @@
 export DOCKER_UTILBOX_UTILS_DIR={{ scripts_dir }}
 export DOCKER_UTILBOX_DIR=$DOCKER_UTILBOX_SCRIPTS_DIR/docker.utilbox
-export PATH=$PATH:$DOCKER_UTILBOX_SCRIPTS_DIR
+export PATH=$PATH:{{ scripts_dir }}

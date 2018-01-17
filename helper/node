@@ -2,13 +2,12 @@
 
 : ${NODEV:=8.9}
 
-script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 image_tag="varlog/dockerutil_nodejs"
 the_user="nodejs"
 the_group=${the_user}
 the_home=/home/${the_user}
-context_dir="${script_dir}/../docker/nodejs"
-mount_dir="${script_dir}/../mounts/nodejs"
+context_dir="${DOCKER_UTILBOX_DIR}/docker/nodejs"
+mount_dir="${DOCKER_UTILBOX_DIR}/mounts/nodejs"
 mount_cache_dir="${mount_dir}/.cache"
 mount_alias_dir="${mount_dir}/alias"
 mount_versions_dir="${mount_dir}/versions"

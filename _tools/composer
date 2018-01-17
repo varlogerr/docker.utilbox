@@ -1,9 +1,7 @@
 #!/bin/bash
 
-script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "${script_dir}/.docker.utilbox-utilbox_dir"
-context_dir="${utilbox_dir}/docker/composer"
-mount_dir="${utilbox_dir}/mounts/composer"
+context_dir="${DOCKER_UTILBOX_DIR}/docker/composer"
+mount_dir="${DOCKER_UTILBOX_DIR}/mounts/composer"
 env_file_path=$(pwd)/.env
 
 the_user="composer"

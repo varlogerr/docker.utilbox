@@ -1,6 +1,4 @@
 #!/bin/bash
 
-script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
-/bin/bash $script_dir/composer \
+/bin/bash ${DOCKER_UTILBOX_UTILS_DIR}/composer \
     /install-and-run phpmd phpmd/phpmd $@

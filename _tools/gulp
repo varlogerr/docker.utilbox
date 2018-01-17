@@ -1,6 +1,4 @@
 #!/bin/bash
 
-script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "${script_dir}/.docker.utilbox-utilbox_dir"
-
-/bin/bash ${utilbox_dir}/helper/node /nodeutil-runner gulp gulp-cli $@
+/bin/bash ${DOCKER_UTILBOX_DIR}/helper/node \
+    /nodeutil-runner gulp gulp-cli $@

@@ -1,6 +1,6 @@
 # docker.utilbox
 ```
-mkdir -p ~/.bin && cd $_ \
+mkdir -p ~/.my_bin && cd $_ \
   && git clone https://github.com/varlogerr/docker.utilbox.git \
   && cp -R ./docker.utilbox/_tools/. ./ \
   && cat _assets/.docker_utilbox_bashrc \

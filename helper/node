@@ -3,7 +3,7 @@
 : ${NODEV:=8.9}
 
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-image_tag="varlog/util_nodejs"
+image_tag="varlog/dockerutil_nodejs"
 the_user="nodejs"
 the_group=${the_user}
 the_home=/home/${the_user}

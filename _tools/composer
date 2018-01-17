@@ -9,7 +9,7 @@ env_file_path=$(pwd)/.env
 the_user="composer"
 the_group=${the_user}
 the_home="/home/${the_user}"
-image_tag="varlog/util_composer"
+image_tag="varlog/dockerutil_composer"
 composer_dir="${the_home}/cache"
 src_dir="${the_home}/app"
 

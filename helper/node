@@ -20,22 +20,26 @@ config_dir="${the_home}/.config/configstore"
 src_dir="${the_home}/app"
 env_file_path=$(pwd)/.env
 
-docker build -q -t ${image_tag} \
-    --build-arg THE_USER=${the_user} \
-    --build-arg THE_GROUP=${the_group} \
-    --build-arg THE_HOME=${the_home} \
-    ${context_dir}
+if [[ "$(docker images -q ${image_tag} 2> /dev/null)" == "" ]]; then
+    echo "Building image..."
+    docker build -t ${image_tag} \
+        --build-arg THE_USER=${the_user} \
+        --build-arg THE_GROUP=${the_group} \
+        --build-arg THE_HOME=${the_home} \
+        --no-cache \
+        ${context_dir}
 
-docker run -it --rm \
-    -v ${mount_cache_dir}:${cache_dir} \
-    -v ${mount_alias_dir}:${alias_dir} \
-    -v ${mount_versions_dir}:${versions_dir} \
-    -v ${mount_config_dir}:${config_dir} \
-    ${image_tag} \
-    /bin/bash -c "chown ${the_user}:${the_group} ${cache_dir} \
-               && chown ${the_user}:${the_group} ${alias_dir} \
-               && chown ${the_user}:${the_group} ${versions_dir} \
-               && chown ${the_user}:${the_group} ${config_dir}"
+    docker run -it --rm \
+        -v ${mount_cache_dir}:${cache_dir} \
+        -v ${mount_alias_dir}:${alias_dir} \
+        -v ${mount_versions_dir}:${versions_dir} \
+        -v ${mount_config_dir}:${config_dir} \
+        ${image_tag} \
+        /bin/bash -c "chown ${the_user}:${the_group} ${cache_dir} \
+                   && chown ${the_user}:${the_group} ${alias_dir} \
+                   && chown ${the_user}:${the_group} ${versions_dir} \
+                   && chown ${the_user}:${the_group} ${config_dir}"
+fi
 
 if [ ! -f ${env_file_path} ]
 then

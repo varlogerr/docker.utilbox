@@ -18,6 +18,7 @@ alias_dir="${the_home}/.nvm/alias"
 versions_dir="${the_home}/.nvm/versions"
 config_dir="${the_home}/.config/configstore"
 src_dir="${the_home}/app"
+env_file_path=$(pwd)/.env
 
 docker build -q -t ${image_tag} \
     --build-arg THE_USER=${the_user} \
@@ -36,13 +37,28 @@ docker run -it --rm \
                && chown ${the_user}:${the_group} ${versions_dir} \
                && chown ${the_user}:${the_group} ${config_dir}"
 
-docker run -it --rm \
-    -e "NODEV=${NODEV}" \
-    -v ${mount_cache_dir}:${cache_dir} \
-    -v ${mount_alias_dir}:${alias_dir} \
-    -v ${mount_versions_dir}:${versions_dir} \
-    -v ${mount_config_dir}:${config_dir} \
-    -v $(pwd):${src_dir} \
-    -w ${src_dir} \
-    -u ${the_user} \
-    ${image_tag} $@
+if [ ! -f ${env_file_path} ]
+then
+    docker run -it --rm \
+        -e "NODEV=${NODEV}" \
+        -v ${mount_cache_dir}:${cache_dir} \
+        -v ${mount_alias_dir}:${alias_dir} \
+        -v ${mount_versions_dir}:${versions_dir} \
+        -v ${mount_config_dir}:${config_dir} \
+        -v $(pwd):${src_dir} \
+        -w ${src_dir} \
+        -u ${the_user} \
+        ${image_tag} $@
+else
+    docker run -it --rm \
+        --env-file=${env_file_path} \
+        -e "NODEV=${NODEV}" \
+        -v ${mount_cache_dir}:${cache_dir} \
+        -v ${mount_alias_dir}:${alias_dir} \
+        -v ${mount_versions_dir}:${versions_dir} \
+        -v ${mount_config_dir}:${config_dir} \
+        -v $(pwd):${src_dir} \
+        -w ${src_dir} \
+        -u ${the_user} \
+        ${image_tag} $@
+fi

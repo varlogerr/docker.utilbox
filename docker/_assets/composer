@@ -4,6 +4,7 @@ script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "${script_dir}/.docker.utilbox-utilbox_dir"
 context_dir="${utilbox_dir}/docker/composer"
 mount_dir="${utilbox_dir}/mounts/composer"
+env_file_path=$(pwd)/.env
 
 the_user="composer"
 the_group=${the_user}
@@ -24,10 +25,22 @@ docker run -it --rm \
     ${image_tag} \
     /bin/bash -c "chown ${the_user}:${the_group} ${composer_dir}"
 
-docker run -it --rm \
-    -e "COMPOSER_HOME=${composer_dir}" \
-    -v $(pwd):${src_dir} \
-    -v ${mount_dir}:${composer_dir} \
-    -w ${src_dir} \
-    -u ${the_user} \
-    ${image_tag} $@
+if [ ! -f ${env_file_path} ]
+then
+    docker run -it --rm \
+        -e "COMPOSER_HOME=${composer_dir}" \
+        -v $(pwd):${src_dir} \
+        -v ${mount_dir}:${composer_dir} \
+        -w ${src_dir} \
+        -u ${the_user} \
+        ${image_tag} $@
+else
+    docker run -it --rm \
+        --env-file=${env_file_path} \
+        -e "COMPOSER_HOME=${composer_dir}" \
+        -v $(pwd):${src_dir} \
+        -v ${mount_dir}:${composer_dir} \
+        -w ${src_dir} \
+        -u ${the_user} \
+        ${image_tag} $@
+fi

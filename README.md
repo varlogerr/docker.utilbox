@@ -8,7 +8,7 @@ mkdir -p ~/.my_bin && cd $_ \
     > ~/.docker_utilbox_bashrc \
   && echo "source $HOME/.docker_utilbox_bashrc" >> ~/.bashrc
 ```
-And you have following utils at your disposal:
+Reload terminal and you have following tools at your disposal:
 * composer
 * phing
 * phinx
@@ -20,3 +20,6 @@ And you have following utils at your disposal:
 * npm
 * bower
 * gulp
+
+Each of tool automatically grabs `.env` file from pwd if it exists.  
+Default node version with associated npm is the latest one accessable from nvm. If you want to change it just use an environment variable `NODEV`, just like that: `NODEV=6.9 node index.js`

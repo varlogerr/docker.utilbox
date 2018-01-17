@@ -21,5 +21,5 @@ Reload terminal and you have following tools at your disposal:
 * bower
 * gulp
 
-Each of tool automatically grabs `.env` file from pwd if it exists.  
+Each tool automatically grabs `.env` file from pwd if it exists.  
 Default node version with associated npm is the latest one accessable from nvm. If you want to change it just use an environment variable `NODEV`, just like that: `NODEV=6.9 node index.js`

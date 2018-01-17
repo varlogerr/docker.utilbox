@@ -8,3 +8,15 @@ mkdir -p ~/.my_bin && cd $_ \
     > ~/.docker_utilbox_bashrc \
   && echo "source $HOME/.docker_utilbox_bashrc" >> ~/.bashrc
 ```
+And you have following utils at your disposal:
+* composer
+* phing
+* phinx
+* phpcpd
+* phpmd
+* phpunit
+* nvm
+* node
+* npm
+* bower
+* gulp

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-: ${DOCKUTILS_COMPOSER_PARAMS:=''}
+: ${DCOMPOSER_PARAMS:=''}
 
 dcomposer_params=''
 if [ -f $(pwd)/.dcomposer_params ]; then
@@ -50,5 +50,5 @@ fi
 
 docker run ${run_params} \
     ${dcomposer_params} \
-    ${DOCKUTILS_COMPOSER_PARAMS} \
+    ${DCOMPOSER_PARAMS} \
     ${image_tag} $@

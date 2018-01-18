@@ -1,7 +1,7 @@
 #!/bin/bash
 
 : ${NODEV:=8.9}
-: ${DOCKUTILS_NODE_PARAMS:=''}
+: ${DNODE_PARAMS:=''}
 
 dnode_params=''
 if [ -f $(pwd)/.dnode_params ]; then
@@ -65,5 +65,5 @@ fi
 
 docker run $run_params \
     ${dnode_params} \
-    ${DOCKUTILS_NODE_PARAMS} \
+    ${DNODE_PARAMS} \
     ${image_tag} $@

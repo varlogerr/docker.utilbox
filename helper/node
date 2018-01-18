@@ -17,7 +17,6 @@ alias_dir="${the_home}/.nvm/alias"
 versions_dir="${the_home}/.nvm/versions"
 config_dir="${the_home}/.config/configstore"
 src_dir="${the_home}/app"
-env_file_path=$(pwd)/.env
 
 if [[ "$(docker images -q ${image_tag} 2> /dev/null)" == "" ]]; then
     echo "Building image..."
@@ -40,28 +39,19 @@ if [[ "$(docker images -q ${image_tag} 2> /dev/null)" == "" ]]; then
                    && chown ${the_user}:${the_group} ${config_dir}"
 fi
 
-if [ ! -f ${env_file_path} ]
-then
-    docker run -it --rm \
-        -e "NODEV=${NODEV}" \
-        -v ${mount_cache_dir}:${cache_dir} \
-        -v ${mount_alias_dir}:${alias_dir} \
-        -v ${mount_versions_dir}:${versions_dir} \
-        -v ${mount_config_dir}:${config_dir} \
-        -v $(pwd):${src_dir} \
-        -w ${src_dir} \
-        -u ${the_user} \
-        ${image_tag} $@
-else
-    docker run -it --rm \
-        --env-file=${env_file_path} \
-        -e "NODEV=${NODEV}" \
-        -v ${mount_cache_dir}:${cache_dir} \
-        -v ${mount_alias_dir}:${alias_dir} \
-        -v ${mount_versions_dir}:${versions_dir} \
-        -v ${mount_config_dir}:${config_dir} \
-        -v $(pwd):${src_dir} \
-        -w ${src_dir} \
-        -u ${the_user} \
-        ${image_tag} $@
+env_file_path=$(pwd)/.env
+run_params="-it --rm \
+    -e "NODEV=${NODEV}" \
+    -v ${mount_cache_dir}:${cache_dir} \
+    -v ${mount_alias_dir}:${alias_dir} \
+    -v ${mount_versions_dir}:${versions_dir} \
+    -v ${mount_config_dir}:${config_dir} \
+    -v $(pwd):${src_dir} \
+    -w ${src_dir} \
+    -u ${the_user}"
+if [ -f ${env_file_path} ]; then
+    run_params="${run_params} --env-file=${env_file_path}"
 fi
+
+docker run $run_params \
+    ${image_tag} $@

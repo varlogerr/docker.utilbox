@@ -42,5 +42,5 @@ DNODE_PARAMS="-p 3000:3000 -v $(pwd)/test:~/test" node index.js
 .dnode_params demo
 ```
 -p 3000:3000
--v $(pwd)/test:~/test
+-v $(pwd)/test:/home/nodejs/test
 ```

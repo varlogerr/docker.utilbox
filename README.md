@@ -36,7 +36,7 @@ Priority level (lowest to highest):
 
 DNODE_PARAMS demo
 ```
-DNODE_PARAMS="-p 3000:3000 -v $(pwd)/test:~/test"
+DNODE_PARAMS="-p 3000:3000 -v $(pwd)/test:~/test" node index.js
 ```
 .dnode_params demo
 ```

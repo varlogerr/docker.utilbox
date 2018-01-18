@@ -6,9 +6,10 @@ mkdir -p ~/.my_bin && cd $_ \
   && cat docker.utilbox/assets/.docker_utilbox_bashrc \
     | sed -e "s#{{ scripts_dir }}#$(pwd)#" \
     > ~/.docker_utilbox_bashrc \
-  && echo "source $HOME/.docker_utilbox_bashrc" >> ~/.bashrc
+  && echo "source $HOME/.docker_utilbox_bashrc" >> ~/.bashrc \
+  && source ~/.bashrc
 ```
-Reload terminal and you have following tools at your disposal:
+And you have following tools at your disposal:
 * composer
 * phing
 * phinx

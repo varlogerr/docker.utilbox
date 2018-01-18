@@ -28,14 +28,16 @@ And you have following tools at your disposal:
 
 Each tool automatically grabs `.env` file from pwd if it exists.  
 Default node version with associated npm is `8.9.*` (i.e. latest LTS for the moment). If you want to change it just use an environment variable `NODEV`, just like that: `NODEV=6.9 node index.js` or add `NODEV=<desired-version>` to your `.bashrc` / `.bash_profile`.  
-`DNODE_PARAMS` and `DCOMPOSER_PARAMS` env variable will be passed to params string to `docker run` in addition to hardcoded ones. Same effect can be reached with files `.dcomposer_params` and `.dnode_params` in the pwd or / and HOME directory.  
-Priority level (lowest to highest):  
+`DNODE_PARAMS` and `DCOMPOSER_PARAMS` env variable will be passed to params string to `docker run` in addition to hardcoded ones. Same effect can be reached with files `.dcomposer_params` and `.dnode_params` in the pwd or / and HOME directory.
+
+Priority level (lowest to highest):
 * .d_params in HOME
 * .d_params in pwd
 * D_PARAMS env var
+
 DNODE_PARAMS demo
 ```
-DNODE_PARAMS="-p 3000:3000 -v $(pwd)/test:~/test"
+DNODE_PARAMS="-p 3000:3000 -v $(pwd)/test:~/test" node index.js
 ```
 .dnode_params demo
 ```

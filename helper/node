@@ -3,6 +3,11 @@
 : ${NODEV:=8.9}
 : ${DOCKUTILS_NODE_PARAMS:=''}
 
+dnode_params=''
+if [ -f $(pwd)/.dnode_params ]; then
+    dnode_params=`cat $(pwd)/.dnode_params | tr '\n' ' '`
+fi
+
 image_tag="varlog/dockerutil_nodejs"
 the_user="nodejs"
 the_group=${the_user}
@@ -43,7 +48,6 @@ fi
 env_file_path=$(pwd)/.env
 my_ssh_dir_path=$HOME/.ssh
 run_params="-it --rm \
-    ${DOCKUTILS_NODE_PARAMS} \
     -e "NODEV=${NODEV}" \
     -v ${mount_cache_dir}:${cache_dir} \
     -v ${mount_alias_dir}:${alias_dir} \
@@ -60,4 +64,6 @@ if [ -d $my_ssh_dir_path ]; then
 fi
 
 docker run $run_params \
+    ${dnode_params} \
+    ${DOCKUTILS_NODE_PARAMS} \
     ${image_tag} $@

@@ -2,6 +2,11 @@
 
 : ${DOCKUTILS_COMPOSER_PARAMS:=''}
 
+dcomposer_params=''
+if [ -f $(pwd)/.dcomposer_params ]; then
+    dcomposer_params=`cat $(pwd)/.dcomposer_params | tr '\n' ' '`
+fi
+
 context_dir="${DOCKER_UTILBOX_DIR}/docker/composer"
 mount_dir="${DOCKER_UTILBOX_DIR}/mounts/composer"
 
@@ -31,7 +36,6 @@ fi
 env_file_path=$(pwd)/.env
 my_ssh_dir_path=$HOME/.ssh
 run_params="-it --rm \
-    ${DOCKUTILS_COMPOSER_PARAMS} \
     -e "COMPOSER_HOME=${composer_dir}" \
     -v $(pwd):${src_dir} \
     -v ${mount_dir}:${composer_dir} \
@@ -45,4 +49,6 @@ if [ -d $my_ssh_dir_path ]; then
 fi
 
 docker run ${run_params} \
+    ${dcomposer_params} \
+    ${DOCKUTILS_COMPOSER_PARAMS} \
     ${image_tag} $@

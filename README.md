@@ -1,13 +1,16 @@
 # docker.utilbox
+Run
 ```
-mkdir -p ~/.my_bin && cd $_ \
-  && git clone https://github.com/varlogerr/docker.utilbox.git \
-  && cp -R ./docker.utilbox/tools/. ./ \
-  && cat docker.utilbox/assets/.docker_utilbox_bashrc \
-    | sed -e "s#{{ scripts_dir }}#$(pwd)#" \
-    > ~/.docker_utilbox_bashrc \
-  && echo "source $HOME/.docker_utilbox_bashrc" >> ~/.bashrc \
-  && source ~/.bashrc
+utilbox_bin_dir=$HOME/.dockerutil_bin; \
+utilbox_bashrc_path=$HOME/.docker_utilbox_bashrc; \
+mkdir -p $utilbox_bin_dir && cd $_ \
+&& git clone https://github.com/varlogerr/docker.utilbox.git \
+&& cp -R ./docker.utilbox/tools/. ./ \
+&& cat docker.utilbox/assets/.docker_utilbox_bashrc \
+  | sed -e "s#{{ scripts_dir }}#${utilbox_bin_dir}#" \
+  > $utilbox_bashrc_path \
+&& echo "source ${utilbox_bashrc_path}" >> $HOME/.bashrc \
+&& source $HOME/.bashrc
 ```
 And you have following tools at your disposal:
 * composer

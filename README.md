@@ -13,13 +13,14 @@ mkdir -p $utilbox_bin_dir && cd $_ \
 && source $HOME/.bashrc
 ```
 And you have following tools at your disposal:
-* composer
+* composer  (just to enter composer container)
 * phing
 * phinx
 * phpcpd
 * phpmd
 * phpunit
 * nvm
+* node-bash (just to enter node container)
 * node
 * npm
 * bower

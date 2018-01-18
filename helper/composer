@@ -1,0 +1,45 @@
+#!/bin/bash
+
+context_dir="${DOCKER_UTILBOX_DIR}/docker/composer"
+mount_dir="${DOCKER_UTILBOX_DIR}/mounts/composer"
+
+the_user="composer"
+the_group=${the_user}
+the_home="/home/${the_user}"
+image_tag="varlog/dockerutil_composer"
+composer_dir="${the_home}/cache"
+src_dir="${the_home}/app"
+
+if [[ "$(docker images -q ${image_tag} 2> /dev/null)" == "" ]]; then
+    echo "Building image..."
+    docker build -t ${image_tag} \
+        --build-arg THE_USER=${the_user} \
+        --build-arg THE_GROUP=${the_group} \
+        --build-arg THE_HOME=${the_home} \
+        --no-cache \
+        $context_dir
+
+    docker run -it --rm \
+        -e "COMPOSER_HOME=${composer_dir}" \
+        -v ${mount_dir}:${composer_dir} \
+        ${image_tag} \
+        /bin/bash -c "chown ${the_user}:${the_group} ${composer_dir}"
+fi
+
+env_file_path=$(pwd)/.env
+my_ssh_dir_path=$HOME/.ssh
+run_params="-it --rm \
+    -e "COMPOSER_HOME=${composer_dir}" \
+    -v $(pwd):${src_dir} \
+    -v ${mount_dir}:${composer_dir} \
+    -w ${src_dir} \
+    -u ${the_user}"
+if [ -f ${env_file_path} ]; then
+    run_params="${run_params} --env-file=${env_file_path}"
+fi
+if [ -d $my_ssh_dir_path ]; then
+    run_params="${run_params} -v ${my_ssh_dir_path}:${the_home}/.ssh"
+fi
+
+docker run ${run_params} \
+    ${image_tag} $@

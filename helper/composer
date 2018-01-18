@@ -3,8 +3,11 @@
 : ${DCOMPOSER_PARAMS:=''}
 
 dcomposer_params=''
+if [ -f $HOME/.dcomposer_params ]; then
+    dcomposer_params="${dcomposer_params} "`cat ${HOME}/.dcomposer_params | tr '\n' ' '`
+fi
 if [ -f $(pwd)/.dcomposer_params ]; then
-    dcomposer_params=`cat $(pwd)/.dcomposer_params | tr '\n' ' '`
+    dcomposer_params="${dcomposer_params} "`cat $(pwd)/.dcomposer_params | tr '\n' ' '`
 fi
 
 context_dir="${DOCKER_UTILBOX_DIR}/docker/composer"

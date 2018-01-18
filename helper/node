@@ -4,8 +4,11 @@
 : ${DNODE_PARAMS:=''}
 
 dnode_params=''
+if [ -f $HOME/.dnode_params ]; then
+    dnode_params="${dnode_params} "`cat ${HOME}/.dnode_params | tr '\n' ' '`
+fi
 if [ -f $(pwd)/.dnode_params ]; then
-    dnode_params=`cat $(pwd)/.dnode_params | tr '\n' ' '`
+    dnode_params="${dnode_params} "`cat $(pwd)/.dnode_params | tr '\n' ' '`
 fi
 
 image_tag="varlog/dockerutil_nodejs"

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+: ${DOCKUTILS_COMPOSER_PARAMS:=''}
+
 context_dir="${DOCKER_UTILBOX_DIR}/docker/composer"
 mount_dir="${DOCKER_UTILBOX_DIR}/mounts/composer"
 
@@ -29,6 +31,7 @@ fi
 env_file_path=$(pwd)/.env
 my_ssh_dir_path=$HOME/.ssh
 run_params="-it --rm \
+    ${DOCKUTILS_COMPOSER_PARAMS} \
     -e "COMPOSER_HOME=${composer_dir}" \
     -v $(pwd):${src_dir} \
     -v ${mount_dir}:${composer_dir} \

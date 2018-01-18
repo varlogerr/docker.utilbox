@@ -1,6 +1,7 @@
 #!/bin/bash
 
 : ${NODEV:=8.9}
+: ${DOCKUTILS_NODE_PARAMS:=''}
 
 image_tag="varlog/dockerutil_nodejs"
 the_user="nodejs"
@@ -42,6 +43,7 @@ fi
 env_file_path=$(pwd)/.env
 my_ssh_dir_path=$HOME/.ssh
 run_params="-it --rm \
+    ${DOCKUTILS_NODE_PARAMS} \
     -e "NODEV=${NODEV}" \
     -v ${mount_cache_dir}:${cache_dir} \
     -v ${mount_alias_dir}:${alias_dir} \

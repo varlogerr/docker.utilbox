@@ -13,7 +13,8 @@ mkdir -p $utilbox_bin_dir && cd $_ \
 && source $HOME/.bashrc
 ```
 And you have following tools at your disposal:
-* composer  (just to enter composer container)
+* composer-bash (just to enter composer container)
+* composer
 * phing
 * phinx
 * phpcpd

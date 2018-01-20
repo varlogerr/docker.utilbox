@@ -24,12 +24,10 @@ the_group=${the_user}
 the_home=/home/${the_user}
 context_dir="${DOCKER_UTILBOX_DIR}/docker/nodejs"
 mount_dir="${DOCKER_UTILBOX_DIR}/mounts/nodejs"
-mount_cache_dir="${mount_dir}/.cache"
 mount_alias_dir="${mount_dir}/alias"
 mount_versions_dir="${mount_dir}/versions"
 mount_config_dir="${mount_dir}/configstore"
 nvm_dir="${the_home}/.nvm"
-cache_dir="${nvm_dir}/.cache"
 alias_dir="${nvm_dir}/alias"
 versions_dir="${nvm_dir}/versions"
 config_dir="${the_home}/.config/configstore"
@@ -62,13 +60,11 @@ if [[ $image_exists == "" ]]; then
 
     docker run -it --rm \
         -v ${mount_dir}:${nvm_dir} \
-        -v ${mount_cache_dir}:${cache_dir} \
         -v ${mount_alias_dir}:${alias_dir} \
         -v ${mount_versions_dir}:${versions_dir} \
         -v ${mount_config_dir}:${config_dir} \
         ${image_tag} \
         /bin/bash -c "chown ${the_user}:${the_group} ${nvm_dir} \
-                   && chown ${the_user}:${the_group} ${cache_dir} \
                    && chown ${the_user}:${the_group} ${alias_dir} \
                    && chown ${the_user}:${the_group} ${versions_dir} \
                    && chown ${the_user}:${the_group} ${config_dir}"
@@ -80,7 +76,6 @@ env_file_path=$(pwd)/.env
 my_ssh_dir_path=$HOME/.ssh
 run_params="-it --rm \
     -e "NODEV=${nodev}" \
-    -v ${mount_cache_dir}:${cache_dir} \
     -v ${mount_alias_dir}:${alias_dir} \
     -v ${mount_versions_dir}:${versions_dir} \
     -v ${mount_config_dir}:${config_dir} \

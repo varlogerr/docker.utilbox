@@ -10,8 +10,8 @@ ADD ["assets", "/tmp/assets"]
 RUN apt-get update \
     && apt-get install -y build-essential \
                           python \
+                          wget \
     && /bin/bash /tmp/assets/scripts/create-users \
-    && /bin/bash /tmp/assets/scripts/install-wget \
     && cp /tmp/assets/scripts/nvm-runner / \
     && chmod +x /nvm-runner \
     && cp /tmp/assets/scripts/node-installer / \
@@ -19,7 +19,9 @@ RUN apt-get update \
     && cp /tmp/assets/scripts/nodeutil-runner / \
     && chmod +x /nodeutil-runner \
     && cp /tmp/assets/scripts/node-runner / \
-    && chmod +x /node-runner
+    && chmod +x /node-runner \
+    && apt-get autoclean \
+    && apt-get autoremove
 
 USER $THE_USER
 

@@ -6,10 +6,8 @@ current_v=${current_version:1}
 requested_v=$NODEV
 requested_len=${#requested_v}
 
-if [[ ${current_v:0:requested_len} == $requested_v ]];
-then
-    :
-else
-    nvm install ${NODEV}
-    nvm use ${NODEV}
+if [[ ${current_v:0:requested_len} != $requested_v ]]; then
+    nvm install ${NODEV} \
+    && nvm use ${NODEV} \
+    && nvm alias default $requested_v
 fi

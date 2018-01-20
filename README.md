@@ -27,7 +27,11 @@ And you have following tools at your disposal:
 * gulp
 
 Each tool automatically grabs `.env` file from pwd if it exists.  
-Default node version with associated npm is `8.9.*` (i.e. latest LTS for the moment). If you want to change it just use an environment variable `NODEV`, just like that: `NODEV=6.9 node index.js` or add `NODEV=<desired-version>` to your `.bashrc` / `.bash_profile`.  
+
+---
+
+Default node version with associated npm is `8.9.*` (i.e. latest LTS for the moment). If you want to change it just use an environment variable `NODEV`, just like that: `NODEV=6.9 node index.js` or add `NODEV=<desired-version>` to your `.bashrc` / `.bash_profile`. Same thing can be done with `.nodev` file where you can place desired version.  
+Note that using different node versions in multiple shell tabs can cause race conditions.  
 
 ---
 

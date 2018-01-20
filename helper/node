@@ -1,6 +1,6 @@
 #!/bin/bash
 
-: ${NODEV:=8.9}
+nodev=8.9
 : ${DNODE_PARAMS:=''}
 
 dnode_params=''
@@ -9,6 +9,13 @@ if [ -f $HOME/.dnode_params ]; then
 fi
 if [ -f $(pwd)/.dnode_params ]; then
     dnode_params="${dnode_params} "`cat $(pwd)/.dnode_params | tr '\n' ' '`
+fi
+
+if [ -f $(pwd)/.nodev ]; then
+    nodev=`cat $(pwd)/.nodev | tr '\n' ' ' | tr -d '[:space:]'`
+fi
+if [[ $NODEV != '' ]]; then
+    nodev=$NODEV
 fi
 
 image_tag="varlog/dockerutil_nodejs"
@@ -72,7 +79,7 @@ fi
 env_file_path=$(pwd)/.env
 my_ssh_dir_path=$HOME/.ssh
 run_params="-it --rm \
-    -e "NODEV=${NODEV}" \
+    -e "NODEV=${nodev}" \
     -v ${mount_cache_dir}:${cache_dir} \
     -v ${mount_alias_dir}:${alias_dir} \
     -v ${mount_versions_dir}:${versions_dir} \

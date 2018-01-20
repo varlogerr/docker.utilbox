@@ -7,7 +7,10 @@ ARG THE_HOME=/home/${THE_USER}
 
 ADD ["assets", "/tmp/assets"]
 
-RUN /bin/bash /tmp/assets/scripts/create-users \
+RUN apt-get update \
+    && apt-get install -y build-essential \
+                          python \
+    && /bin/bash /tmp/assets/scripts/create-users \
     && /bin/bash /tmp/assets/scripts/install-wget \
     && cp /tmp/assets/scripts/nvm-runner / \
     && chmod +x /nvm-runner \

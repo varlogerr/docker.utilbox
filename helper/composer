@@ -22,7 +22,7 @@ src_dir="${the_home}/app"
 
 image_exists="$(docker images -q ${image_tag} 2> /dev/null)"
 
-if [ $DCOMPOSER_RESET == "1" ]; then
+if [[ $DCOMPOSER_RESET == "1" ]]; then
     echo "RESETTING ${image_tag} IMAGE STARTED..."
 
     if [[ $image_exists != "" ]]; then

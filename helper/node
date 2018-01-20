@@ -28,8 +28,24 @@ versions_dir="${nvm_dir}/versions"
 config_dir="${the_home}/.config/configstore"
 src_dir="${the_home}/app"
 
-if [[ "$(docker images -q ${image_tag} 2> /dev/null)" == "" ]]; then
-    echo "Building image..."
+image_exists="$(docker images -q ${image_tag} 2> /dev/null)"
+
+if [[ $DNODE_RESET == "1" ]]; then
+    echo "RESETTING ${image_tag} IMAGE STARTED..."
+
+    if [[ $image_exists != "" ]]; then
+        docker rmi $image_tag
+    fi
+
+    rm -rf $mount_dir
+    image_exists=""
+
+    echo "RESETTING ${image_tag} IMAGE COMPLETE"
+fi
+
+if [[ $image_exists == "" ]]; then
+    echo "BUILDING ${image_tag} IMAGE STARTED..."
+
     docker build -t ${image_tag} \
         --build-arg THE_USER=${the_user} \
         --build-arg THE_GROUP=${the_group} \
@@ -49,6 +65,8 @@ if [[ "$(docker images -q ${image_tag} 2> /dev/null)" == "" ]]; then
                    && chown ${the_user}:${the_group} ${alias_dir} \
                    && chown ${the_user}:${the_group} ${versions_dir} \
                    && chown ${the_user}:${the_group} ${config_dir}"
+
+    echo "BUILDING ${image_tag} IMAGE COMPLETE"
 fi
 
 env_file_path=$(pwd)/.env

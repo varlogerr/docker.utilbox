@@ -44,3 +44,8 @@ DNODE_PARAMS="-p 3000:3000 -v $(pwd)/test:~/test" node index.js
 -p 3000:3000
 -v $(pwd)/test:/home/nodejs/test
 ```
+and
+```
+DCOMPOSER_RESET=1 composer --version
+```
+will rebuild docker image and reset util system mount directory.

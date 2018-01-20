@@ -20,8 +20,24 @@ image_tag="varlog/dockerutil_composer"
 composer_dir="${the_home}/cache"
 src_dir="${the_home}/app"
 
+image_exists="$(docker images -q ${image_tag} 2> /dev/null)"
+
+if [ $DCOMPOSER_RESET == "1" ]; then
+    echo "RESETTING ${image_tag} IMAGE STARTED..."
+
+    if [[ $image_exists != "" ]]; then
+        docker rmi $image_tag
+    fi
+
+    rm -rf $mount_dir
+    image_exists=""
+
+    echo "RESETTING ${image_tag} IMAGE COMPLETE"
+fi
+
 if [[ "$(docker images -q ${image_tag} 2> /dev/null)" == "" ]]; then
-    echo "Building image..."
+    echo "BUILDING ${image_tag} IMAGE STARTED..."
+
     docker build -t ${image_tag} \
         --build-arg THE_USER=${the_user} \
         --build-arg THE_GROUP=${the_group} \
@@ -34,6 +50,8 @@ if [[ "$(docker images -q ${image_tag} 2> /dev/null)" == "" ]]; then
         -v ${mount_dir}:${composer_dir} \
         ${image_tag} \
         /bin/bash -c "chown ${the_user}:${the_group} ${composer_dir}"
+
+    echo "BUILDING ${image_tag} IMAGE COMPLETE"
 fi
 
 env_file_path=$(pwd)/.env

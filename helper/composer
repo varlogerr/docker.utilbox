@@ -40,7 +40,9 @@ if [[ "$(docker images -q ${image_tag} 2> /dev/null)" == "" ]]; then
 
     docker build -t ${image_tag} \
         --build-arg THE_USER=${the_user} \
+        --build-arg THE_USER_ID=$(id -u) \
         --build-arg THE_GROUP=${the_group} \
+        --build-arg THE_GROUP_ID=$(id -g) \
         --build-arg THE_HOME=${the_home} \
         --no-cache \
         $context_dir

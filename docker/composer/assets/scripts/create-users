@@ -1,8 +1,8 @@
 set -x \
-&& addgroup -g 1000 ${THE_GROUP} \
+&& addgroup -g ${THE_GROUP_ID} ${THE_GROUP} \
 && adduser -D \
-           -u 1000 \
-           -G ${THE_USER} \
+           -u ${THE_USER_ID} \
+           -G ${THE_GROUP} \
            -h ${THE_HOME} \
            -g "Composer User" \
            -s /bin/bash \

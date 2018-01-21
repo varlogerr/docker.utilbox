@@ -2,16 +2,18 @@ FROM debian:9.3
 MAINTAINER Varlog <varlog.err@gmail.com>
 
 ARG THE_USER
+ARG THE_USER_ID
 ARG THE_GROUP=${THE_USER}
+ARG THE_GROUP_ID
 ARG THE_HOME=/home/${THE_USER}
 
 ADD ["assets", "/tmp/assets"]
 
-RUN apt-get update \
+RUN /bin/bash /tmp/assets/scripts/create-users \
+    && apt-get update \
     && apt-get install -y build-essential \
                           python \
                           wget \
-    && /bin/bash /tmp/assets/scripts/create-users \
     && cp /tmp/assets/scripts/nvm-runner / \
     && chmod +x /nvm-runner \
     && cp /tmp/assets/scripts/node-installer / \

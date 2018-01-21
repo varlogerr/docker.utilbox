@@ -1,6 +1,10 @@
 set -x \
+&& addgroup -q \
+    --gid $THE_GROUP_ID \
+    $THE_GROUP \
 && adduser -q --disabled-login \
-    --uid 1000 \
+    --uid $THE_USER_ID \
+    --ingroup $THE_GROUP \
     --shell /bin/bash \
     --gecos ",,," \
     --home $THE_HOME \
